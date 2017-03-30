@@ -33,7 +33,9 @@ public class Draw_A_Triangle {
   }
 }
 
+
 /**
+
 Create Exercise 1b: Draw Triangle
 
 Name this new method drawTriangle and give it a return
@@ -46,6 +48,7 @@ from exercise 1a, but N asterisk tall instead of 5.
 
 After writing DrawTriangle, modify the main function so that it
 calls DrawTriangle with N = 10.
+
 */
 
 public class TriangleDrawer {
@@ -64,5 +67,37 @@ public class TriangleDrawer {
   }
   pubic static void main(String[] args) {
     drawTriangle(N); /* Where N is our variable */
+  }
+}
+
+/**
+
+Exercise 2
+
+Using everything you've learned so far on this homework,
+you'll now create a function with the signature public static int max(int [] m)
+that returns the maximun value of an int array. You may
+assume that all of the numbers are greater than or equal
+to zero.
+
+*/
+
+public class ClassNameHere {
+  public static int max(int[] m) {
+    int max = m[0];
+    int i = 0;
+    while (i < m.length) {
+      if (m[i] > max) {
+        max = m[i];
+        i += 1;
+      }
+      i += 1;
+    }
+    System.out.print(max);
+    return max;
+  }
+  public static void main(String[] args) {
+    int[] numbers = new int[] {9,2,15,2,22,10,6};
+    max(numbers);
   }
 }
