@@ -29,12 +29,14 @@ around in space tugging on each other with the power of gravity.
 
 
 public class Planet {
+
 	public double xxPos;
 	public double yyPos;
 	public double xxVel;
 	public double yyVel;
 	public double mass;
 	public String imgFileName;
+
 	public Planet(double xP, double yP, double xV, double yV, double m, String img) {
 		this.xxPos = xP;
 		this.yyPos = yP;
@@ -42,5 +44,57 @@ public class Planet {
 		this.yyVel = yV;
 		this.mass = m;
 		this.imgFileName = img;	
+	}
+
+	public double calcDistance(Planet p) {
+		return Math.sqrt(Math.pow(p.xP - this.xP, 2) + Math.pow(p.yP - this.yP, 2));
+	}
+
+	public double calcForceExertedBy(Planet p) {
+		double G = 6.67 E-11;
+		double rSquare = Math.pow(this.calcDistance(p), 2);
+		return G * other.m * this. m / rSquare;
+	}
+
+	public double calcForceExertedByX(Planet p) {
+		double F = this.calcForceExertedBy(p);
+		return F * (p.xP - this.xP) / this.calcDistance(p);
+	}
+
+	public double calcForceExertedByY(Planet p) {
+		double F = this.calcForceExertedBy(p);
+		return F * (p.yP - this.yP) / this.calcDistance(p);
+	}
+
+	public void calcNetForceExertedByX (Planet[] planets) {
+		this.xNetForce = 0;
+		for (Planet curr : planets) {
+			if (curr.x != this.x) {
+				this.xNetForce += this.calcForceExertedByX(curr);
+			}
+		}
+	}
+
+	public void calcNetForceExertedByY (Planet[] planets) {
+		this.yNetForce = 0;
+		for (Planet curr : planets) {
+			if (curr.y != this.y) {
+				this.yNetForce += this.calcForceExertedByY(curr);
+			}
+		}
+	}
+
+	pulbic void update(double dt) {
+		// acceleration => a_x or a_y =  (F_x or F_y) / m
+		this.xA = xNetForce / this.mass;
+		this.yA = yNetForce / this.mass;
+		this.xxVel +=  dt * this.xA;
+		this.yyVel += dt * this.yA;
+		this.xxPos += dt * this.xxVel;
+		this.yyPos += dt * this.yyVel;
+	}
+
+	public void draw() {
+		StdDraw.picture(x, y, "images/" + imgFileName)
 	}
 }
